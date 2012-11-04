@@ -4,7 +4,6 @@ class Thing < ActiveRecord::Base
   attr_accessible :city_id, :lng, :lat, :name
 end
 
-
 Thing.create(:city_id => 2, :lng => -93.1643969, :lat=> 44.9817932, :name => 'COMO @ ARONA')
 Thing.create(:city_id => 3, :lng => -93.1848648, :lat=> 44.9852047, :name => 'COMO @ BUFORD')
 Thing.create(:city_id => 4, :lng => -93.1449559, :lat=> 44.974805, :name => 'COMO @ CHURCHILL')
