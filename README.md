@@ -1,105 +1,41 @@
-# Adopt-a-Hydrant [![Build Status](https://secure.travis-ci.org/codeforamerica/adopt-a-hydrant.png?branch=master)][travis] [![Dependency Status](https://gemnasium.com/codeforamerica/adopt-a-hydrant.png?travis)][gemnasium]
+# Adopt-a-Hydrant (Twin Cities) [![Build Status](https://secure.travis-ci.org/codeforamerica/adopt-a-hydrant.png?branch=master)][travis] [![Dependency Status](https://gemnasium.com/codeforamerica/adopt-a-hydrant.png?travis)][gemnasium]
+
 Claim responsibility for shoveling out a fire hydrant after it snows.
 
-[travis]: http://travis-ci.org/codeforamerica/adopt-a-hydrant
-[gemnasium]: https://gemnasium.com/codeforamerica/adopt-a-hydrant
+For original documentation, see the this [Adopt-a-Hydrant Github page](https://github.com/codeforamerica/adopt-a-hydrant).
 
-## Screenshot
-![Adopt-a-Hydrant](https://github.com/codeforamerica/adopt-a-hydrant/raw/master/screenshot.png "Adopt-a-Hydrant")
+## Installation and Setup
 
-## Demo
-You can see a running version of the application at
-[http://adopt-a-hydrant.herokuapp.com/][demo].
+### Rails Admin
 
-[demo]: http://adopt-a-hydrant.herokuapp.com/
+Run the Rails Admin setup.  Simply use the defaults (press ENTER);
 
-## Installation
-This application requires [Postgres](http://www.postgresql.org/) to be installed
+    rails g rails_admin:install
+    
+The data seeding (see below) will create an admin user.  Make sure to log into the application with the default credentials:
 
-    git clone git://github.com/codeforamerica/adopt-a-hydrant.git
-    cd adopt-a-hydrant
-    bundle install
+    accounts@opentwincities.org
+    CHANGE.ME
 
-    bundle exec rake db:create
-    bundle exec rake db:schema:load
+And '''CHANGE THE PASSWORD'''.  Do note that this may not be the best way to make a new admin user, so suggestions are welcome.
 
-## Usage
-    rails server
+### Install locally
 
-## Seed Data
-    bundle exec rake db:seed
+These instructions are for Mac.
 
-## Contributing
-In the spirit of [free software][free-sw], **everyone** is encouraged to help
-improve this project.
+1. [Install RVM](https://rvm.io/rvm/install/).  This is needed because Mac comes with Ruby 1.8 and you'll need 1.9.
+1. Setup a Postgres database (instructions?)
+1. If you have credentials for your Postgres, update ```config/database.yml``` as needed.
+1. Install gems: ```bundle install```
+1. Setup database: ```bundle exec rake db:create; bundle exec rake db:schema:load```
+1. Seed the data: ```bundle exec rake db:seed```
+1. Run the server: ```rails server```
 
-[free-sw]: http://www.fsf.org/licensing/essays/free-sw.html
+### Deploying to Heroku
 
-Here are some ways *you* can contribute:
-
-* by using alpha, beta, and prerelease versions
-* by reporting bugs
-* by suggesting new features
-* by [translating to a new language][locales]
-* by writing or editing documentation
-* by writing specifications
-* by writing code (**no patch is too small**: fix typos, add comments, clean up
-  inconsistent whitespace)
-* by refactoring code
-* by closing [issues][]
-* by reviewing patches
-* [financially][]
-
-[locales]: https://github.com/codeforamerica/adopt-a-hydrant/tree/master/config/locales
-[issues]: https://github.com/codeforamerica/adopt-a-hydrant/issues
-[financially]: https://secure.codeforamerica.org/page/contribute
-
-## Submitting an Issue
-We use the [GitHub issue tracker][issues] to track bugs and features. Before
-submitting a bug report or feature request, check to make sure it hasn't
-already been submitted. When submitting a bug report, please include a [Gist][]
-that includes a stack trace and any details that may be necessary to reproduce
-the bug, including your gem version, Ruby version, and operating system.
-Ideally, a bug report should include a pull request with failing specs.
-
-[gist]: https://gist.github.com/
-
-## Submitting a Pull Request
-1. [Fork the repository.][fork]
-2. [Create a topic branch.][branch]
-3. Add specs for your unimplemented feature or bug fix.
-4. Run `bundle exec rake test`. If your specs pass, return to step 3.
-5. Implement your feature or bug fix.
-6. Run `bundle exec rake test`. If your specs fail, return to step 5.
-7. Run `open coverage/index.html`. If your changes are not completely covered
-   by your tests, return to step 3.
-8. Add, commit, and push your changes.
-9. [Submit a pull request.][pr]
-
-[fork]: http://help.github.com/fork-a-repo/
-[branch]: http://learn.github.com/p/branching.html
-[pr]: http://help.github.com/send-pull-requests/
-
-## Supported Ruby Version
-This library aims to support and is [tested against][travis] Ruby version 1.9.3.
-
-If something doesn't work on this version, it should be considered a bug.
-
-This library may inadvertently work (or seem to work) on other Ruby
-implementations, however support will only be provided for the version above.
-
-If you would like this library to support another Ruby version, you may
-volunteer to be a maintainer. Being a maintainer entails making sure all tests
-run and pass on that implementation. When something breaks on your
-implementation, you will be personally responsible for providing patches in a
-timely fashion. If critical issues for a particular implementation exist at the
-time of a major release, support for that Ruby version may be dropped.
-
-## Copyright
-Copyright (c) 2012 Code for America. See [LICENSE][] for details.
-
-[license]: https://github.com/codeforamerica/adopt-a-hydrant/blob/master/LICENSE.md
-
-[![Code for America Tracker](http://stats.codeforamerica.org/codeforamerica/adopt-a-hydrant.png)][tracker]
-
-[tracker]: http://stats.codeforamerica.org/projects/adopt-a-hydrant
+1. Create a heroku app (change app name as needed): ```heroku apps:create otc-adoptahydrant```
+1. Set up a DB: ```heroku addons:add heroku-postgresql```
+1. Push the code and deply the application: ```git push heroku master```
+1. Set up the db: ```heroku run rake db:create; heroku run rake db:schema:load```
+1. Seed the data: ```heroku run rake db:seed```
+1. Go to application: http://otc-adoptahydrant.herokuapp.com
