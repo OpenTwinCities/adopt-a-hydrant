@@ -1,4 +1,14 @@
-# Data from http://civicapi.couchone.com/boston_fire_hydrants/_all_docs?include_docs=true
+# Add admin user.  Change password after creation.  This may
+# not be the best way to do this.
+
+class User < ActiveRecord::Base
+  attr_accessible :email, :name, :organization, :password, :admin
+end
+
+User.create!(:email => 'accounts@opentwincities.org', :name => 'Open Twin Cities Admin', :organization => 'Open Twin Cities', :password => 'CHANGE.ME', :admin => true)
+
+
+# Data
 
 class Thing < ActiveRecord::Base
   attr_accessible :city_id, :lng, :lat, :name
