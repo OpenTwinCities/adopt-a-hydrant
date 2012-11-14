@@ -1,3 +1,5 @@
+require 'json'
+
 # Add admin user.  Change password after creation.  This may
 # not be the best way to do this.
 
@@ -5,7 +7,11 @@ class User < ActiveRecord::Base
   attr_accessible :email, :name, :organization, :password, :admin
 end
 
-User.create!(:email => 'accounts@opentwincities.org', :name => 'Open Twin Cities Admin', :organization => 'Open Twin Cities', :password => 'CHANGE.ME', :admin => true)
+user_found = User.find_by_email('accounts@opentwincities.org')
+if user_found == nil
+  User.create!(:email => 'accounts@opentwincities.org', :name => 'Open Twin Cities Admin', :organization => 'Open Twin Cities', :password => 'CHANGE.ME', :admin => true)
+  puts 'Recreated default admin user.'
+end
 
 
 # Data
@@ -14,214 +20,54 @@ class Thing < ActiveRecord::Base
   attr_accessible :city_id, :lng, :lat, :name
 end
 
-Thing.create(:city_id => 2, :lng => -93.1643969, :lat=> 44.9817932, :name => 'COMO @ ARONA')
-Thing.create(:city_id => 3, :lng => -93.1848648, :lat=> 44.9852047, :name => 'COMO @ BUFORD')
-Thing.create(:city_id => 4, :lng => -93.1449559, :lat=> 44.974805, :name => 'COMO @ CHURCHILL')
-Thing.create(:city_id => 5, :lng => -93.1385032, :lat=> 44.972451, :name => 'COMO @ COLNE')
-Thing.create(:city_id => 6, :lng => -93.1915661, :lat=> 44.9804535, :name => 'COMO @ COMMONWEALTH')
-Thing.create(:city_id => 7, :lng => -93.1837954, :lat=> 44.978015, :name => 'COMO @ FIFIELD')
-Thing.create(:city_id => 8, :lng => -93.1863283, :lat=> 44.9776534, :name => 'COMO @ GIBBS')
-Thing.create(:city_id => 9, :lng => -93.1177555, :lat=> 44.9389111, :name => 'COMO @ HAMLINE')
-Thing.create(:city_id => 10, :lng => -93.189419, :lat=> 44.9859294, :name => 'COMO @ HENDON')
-Thing.create(:city_id => 11, :lng => -93.140454, :lat=> 44.9724625, :name => 'COMO @ KILBURN')
-Thing.create(:city_id => 12, :lng => -93.154396, :lat=> 44.972034, :name => 'COMO @ KNAPP')
-Thing.create(:city_id => 13, :lng => -93.1458448, :lat=> 44.9826262, :name => 'COMO @ LEXINGTON')
-Thing.create(:city_id => 14, :lng => -93.139965, :lat=> 44.988294, :name => 'COMO @ MILTON')
-Thing.create(:city_id => 15, :lng => -93.1177555, :lat=> 44.9389111, :name => 'COMO @ MINNEHAHA')
-Thing.create(:city_id => 16, :lng => -93.1744136, :lat=> 44.9771591, :name => 'COMO @ PACKARD')
-Thing.create(:city_id => 17, :lng => -93.153971, :lat=> 44.9794561, :name => 'COMO @ PARK')
-Thing.create(:city_id => 18, :lng => -93.16175, :lat=> 44.9746122, :name => 'COMO @ PASCAL')
-Thing.create(:city_id => 19, :lng => -93.139483, :lat=> 44.972452, :name => 'COMO @ RYDE')
-Thing.create(:city_id => 20, :lng => -93.1665207, :lat=> 44.9750358, :name => 'COMO @ SNELLING')
-Thing.create(:city_id => 21, :lng => -93.1099204, :lat=> 44.9611432, :name => 'COMO @ THOMAS')
-Thing.create(:city_id => 22, :lng => -93.1995797, :lat=> 44.983381, :name => 'COMO @ VALENTINE')
-Thing.create(:city_id => 23, :lng => -93.1363533, :lat=> 44.9846491, :name => 'COMO @ VICTORIA')
-Thing.create(:city_id => 24, :lng => -93.1147313, :lat=> 44.9609333, :name => 'COMO @ VIRGINIA')
-Thing.create(:city_id => 25, :lng => -93.1161138, :lat=> 44.9674914, :name => 'COMO @ WESTERN')
-Thing.create(:city_id => 26, :lng => -93.1592809, :lat=> 44.9824279, :name => 'COMO AVE @ ALBERT')
-Thing.create(:city_id => 27, :lng => -93.135468, :lat=> 44.974949, :name => 'COMO AVE @ COMO PL')
-Thing.create(:city_id => 28, :lng => -93.194027, :lat=> 44.982368, :name => 'COMO AVE @ DOSWELL')
-Thing.create(:city_id => 29, :lng => -93.112015, :lat=> 44.9604312, :name => 'COMO AVE @ ELFELT')
-Thing.create(:city_id => 30, :lng => -93.202629, :lat=> 44.987225, :name => 'COMO AVE @ EUSTIS')
-Thing.create(:city_id => 31, :lng => -93.111043, :lat=> 44.971066, :name => 'COMO AVE @ GALTIER')
-Thing.create(:city_id => 32, :lng => -93.191262, :lat=> 44.9774434, :name => 'COMO AVE @ SCUDDER R')
-Thing.create(:city_id => 33, :lng => -93.1440868, :lat=> 44.9620962, :name => 'COMO AVE @ VAN BUREN')
-Thing.create(:city_id => 34, :lng => -93.0899578, :lat=> 44.9537029, :name => 'COMO AVE 180\' E OF MARION')
-Thing.create(:city_id => 35, :lng => -93.0899578, :lat=> 44.9537029, :name => 'COMO AVE 1ST HYD. E OF GROTTO')
-Thing.create(:city_id => 36, :lng => -94.6858998, :lat=> 46.729553, :name => 'COMO AVE 1ST HYD. W OF FRONT')
-Thing.create(:city_id => 37, :lng => -93.0899578, :lat=> 44.9537029, :name => 'COMO AVE BET BURGESS & DALE')
-Thing.create(:city_id => 38, :lng => -93.0899578, :lat=> 44.9537029, :name => 'COMO BET GROTTO & JESSAMINE')
-Thing.create(:city_id => 39, :lng => -93.0899578, :lat=> 44.9537029, :name => 'COMO BET STELLA(VAC) & FIFIELD')
-Thing.create(:city_id => 40, :lng => -93.0899578, :lat=> 44.9537029, :name => 'COMO BET STELLA(VAC) & FIFIELD')
-Thing.create(:city_id => 41, :lng => -93.1355147, :lat=> 44.9754967, :name => 'COMO BLVD E @ GATEWAY DR NE COR')
-Thing.create(:city_id => 42, :lng => -93.1353964, :lat=> 44.9810257, :name => 'COMO BLVD E @ IVY')
-Thing.create(:city_id => 43, :lng => -93.135727, :lat=> 44.976597, :name => 'COMO BLVD E @ ROSE')
-Thing.create(:city_id => 44, :lng => -93.0899578, :lat=> 44.9537029, :name => 'COMO BLVD E 160\' S OF ARLINGTONW SID')
-Thing.create(:city_id => 45, :lng => -93.0899578, :lat=> 44.9537029, :name => 'COMO BLVD E 250\' W OF MILTON')
-Thing.create(:city_id => 46, :lng => -93.0899578, :lat=> 44.9537029, :name => 'COMO BLVD W 1ST HYD. N OF HORTON')
-Thing.create(:city_id => 47, :lng => -93.0899578, :lat=> 44.9537029, :name => 'COMO LAKESIDE PAVILLION SW BLDG CORNER')
-Thing.create(:city_id => 48, :lng => -93.0899578, :lat=> 44.9537029, :name => 'COMO PARK E OF SEAL ISLAND')
-Thing.create(:city_id => 49, :lng => -93.148964, :lat=> 44.977566, :name => 'COMO PARK HORTON AVE')
-Thing.create(:city_id => 50, :lng => -93.0899578, :lat=> 44.9537029, :name => 'COMO PARK N OF LARGE CATS')
-Thing.create(:city_id => 51, :lng => -93.1364801, :lat=> 44.9713248, :name => 'COMO PL @ HATCH')
-Thing.create(:city_id => 52, :lng => -93.139483, :lat=> 44.972452, :name => 'COMO PL @ ORCHARD')
-Thing.create(:city_id => 53, :lng => -93.0899578, :lat=> 44.9537029, :name => 'COMO PL 100\' N OF JESSAMINE')
-Thing.create(:city_id => 54, :lng => -93.0899578, :lat=> 44.9537029, :name => 'COMO POOL N HYDRANT')
-Thing.create(:city_id => 55, :lng => -93.0899578, :lat=> 44.9537029, :name => 'COMO POOL S HYDRANT')
-Thing.create(:city_id => 56, :lng => -93.0602772, :lat=> 44.9225067, :name => 'CONCORD @ BARGE CHANNEL')
-Thing.create(:city_id => 57, :lng => -93.0699659, :lat=> 44.923298, :name => 'CONCORD @ CURTICE')
-Thing.create(:city_id => 58, :lng => -93.0736921, :lat=> 44.9221574, :name => 'CONCORD @ E BELVIDERE')
-Thing.create(:city_id => 59, :lng => -93.0741234, :lat=> 44.9381817, :name => 'CONCORD @ E FRONTAGE RD')
-Thing.create(:city_id => 60, :lng => -93.0740628, :lat=> 44.9212872, :name => 'CONCORD @ E WINONA')
-Thing.create(:city_id => 61, :lng => -93.0738916, :lat=> 44.9203838, :name => 'CONCORD @ E WYOMING')
-Thing.create(:city_id => 62, :lng => -93.0747673, :lat=> 44.9248478, :name => 'CONCORD @ PAGE')
-Thing.create(:city_id => 63, :lng => -93.066988, :lat=> 44.9222075, :name => 'CONCORD AT KANSAS-VISTA VILLAGE')
-Thing.create(:city_id => 64, :lng => -93.1002082, :lat=> 44.9230585, :name => 'CONCORD ST BET. WYOMING & ANNAPOLIS')
-Thing.create(:city_id => 65, :lng => -93.0899578, :lat=> 44.9537029, :name => 'CONCORDIA @ ALDINE')
-Thing.create(:city_id => 66, :lng => -93.0899578, :lat=> 44.9537029, :name => 'CONCORDIA @ AVON')
-Thing.create(:city_id => 67, :lng => -93.0899578, :lat=> 44.9537029, :name => 'CONCORDIA @ CUL-DE-SAC W OF ALDINE')
-Thing.create(:city_id => 68, :lng => -93.1173786, :lat=> 44.9508715, :name => 'CONCORDIA @ DALE')
-Thing.create(:city_id => 69, :lng => -93.0899578, :lat=> 44.9537029, :name => 'CONCORDIA @ FISK')
-Thing.create(:city_id => 70, :lng => -93.0899578, :lat=> 44.9537029, :name => 'CONCORDIA @ FRY')
-Thing.create(:city_id => 71, :lng => -93.0899578, :lat=> 44.9537029, :name => 'CONCORDIA @ GROTTO')
-Thing.create(:city_id => 72, :lng => -93.1546755, :lat=> 44.9497041, :name => 'CONCORDIA @ HAMLINE')
-Thing.create(:city_id => 73, :lng => -93.0899578, :lat=> 44.9537029, :name => 'CONCORDIA @ JOHN IRELAND')
-Thing.create(:city_id => 74, :lng => -93.0899578, :lat=> 44.9537029, :name => 'CONCORDIA @ KENT(VAC)')
-Thing.create(:city_id => 75, :lng => -93.1546755, :lat=> 44.9497041, :name => 'CONCORDIA @ LEXINGTON')
-Thing.create(:city_id => 76, :lng => -93.0899578, :lat=> 44.9537029, :name => 'CONCORDIA @ MACKUBIN')
-Thing.create(:city_id => 77, :lng => -93.0899578, :lat=> 44.9537029, :name => 'CONCORDIA @ MARION')
-Thing.create(:city_id => 78, :lng => -93.0899578, :lat=> 44.9537029, :name => 'CONCORDIA @ OXFORD')
-Thing.create(:city_id => 79, :lng => -93.0899578, :lat=> 44.9537029, :name => 'CONCORDIA @ PASCAL')
-Thing.create(:city_id => 80, :lng => -93.0899578, :lat=> 44.9537029, :name => 'CONCORDIA @ PIERCE')
-Thing.create(:city_id => 81, :lng => -93.0899578, :lat=> 44.9537029, :name => 'CONCORDIA @ VICTORIA')
-Thing.create(:city_id => 82, :lng => -93.0899578, :lat=> 44.9537029, :name => 'CONCORDIA 1ST HYD. E OF WESTERN')
-Thing.create(:city_id => 83, :lng => -93.1503602, :lat=> 44.9450149, :name => 'CONCORDIA 1ST HYD. W OF LEXINGTON')
-Thing.create(:city_id => 84, :lng => -93.0899578, :lat=> 44.9537029, :name => 'CONCORDIA 2ND HYD. E OF WESTERN')
-Thing.create(:city_id => 85, :lng => -93.1653089, :lat=> 44.9565898, :name => 'CONCORDIA AVE @ ASBURY')
-Thing.create(:city_id => 86, :lng => -93.1390271, :lat=> 44.9579949, :name => 'CONCORDIA AVE @ MILTON')
-Thing.create(:city_id => 87, :lng => -93.1286696, :lat=> 44.99, :name => 'CONCORDIA AVE @ ST ALBANS')
-Thing.create(:city_id => 88, :lng => -93.155067, :lat=> 44.9513301, :name => 'CONCORDIA AVE 110\' W OF SNELLING')
-Thing.create(:city_id => 89, :lng => -93.0899578, :lat=> 44.9537029, :name => 'CONCORDIA AVE BET HAMLINE & PASCAL')
-Thing.create(:city_id => 90, :lng => -93.1754557, :lat=> 44.9489852, :name => 'CONCORDIA AVE BET. GRIGGS & HAMLINE')
-Thing.create(:city_id => 91, :lng => -93.0899578, :lat=> 44.9537029, :name => 'CONCRETE SLAB WITH TOWER FIRE TRNG CTR ON ENERGY PAR')
-Thing.create(:city_id => 92, :lng => -93.0899578, :lat=> 44.9537029, :name => 'CONGRESS ST E BET ANITA & BANCROFT')
-Thing.create(:city_id => 93, :lng => -93.0899578, :lat=> 44.9537029, :name => 'CONGRESS(VAC) W OF ADA')
-Thing.create(:city_id => 94, :lng => -93.0899578, :lat=> 44.9537029, :name => 'CONSERVATORY 2ND HYD. S OF COTTAGE')
-Thing.create(:city_id => 95, :lng => -93.0899578, :lat=> 44.9537029, :name => 'CONSERVATORY CT 1ST HYD. S OF COTTAGE')
-Thing.create(:city_id => 96, :lng => -93.037466, :lat=> 44.955414, :name => 'CONWAY @ ARCADE')
-Thing.create(:city_id => 97, :lng => -93.0380162, :lat=> 44.9830515, :name => 'CONWAY @ BARCLAY')
-Thing.create(:city_id => 98, :lng => -93.0380162, :lat=> 44.9830515, :name => 'CONWAY @ BARCLAY')
-Thing.create(:city_id => 99, :lng => -93.0395601, :lat=> 44.9609031, :name => 'CONWAY @ BIRMINGHAM')
-Thing.create(:city_id => 100, :lng => -93.0430905, :lat=> 44.9866024, :name => 'CONWAY @ CLARENCE')
-Thing.create(:city_id => 101, :lng => -93.0583466, :lat=> 44.9739245, :name => 'CONWAY @ CYPRESS')
-Thing.create(:city_id => 102, :lng => -93.0176857, :lat=> 44.9770848, :name => 'CONWAY @ DEAD END W OF LUELLA')
-Thing.create(:city_id => 103, :lng => -93.055881, :lat=> 44.964004, :name => 'CONWAY @ EARL')
-Thing.create(:city_id => 104, :lng => -93.045685, :lat=> 44.988405, :name => 'CONWAY @ ENGLISH')
-Thing.create(:city_id => 105, :lng => -93.041528, :lat=> 44.9567947, :name => 'CONWAY @ ETNA')
-Thing.create(:city_id => 106, :lng => -93.0278322, :lat=> 44.9736992, :name => 'CONWAY @ FLANDRAU')
-Thing.create(:city_id => 107, :lng => -93.0191042, :lat=> 44.9298404, :name => 'CONWAY @ FOREST')
-Thing.create(:city_id => 108, :lng => -93.0329462, :lat=> 44.9613138, :name => 'CONWAY @ GERMAIN')
-Thing.create(:city_id => 109, :lng => -93.0499476, :lat=> 44.9549955, :name => 'CONWAY @ GRIFFITH')
-Thing.create(:city_id => 110, :lng => -93.0354743, :lat=> 44.9699175, :name => 'CONWAY @ HAZELWOOD')
-Thing.create(:city_id => 111, :lng => -93.007812, :lat=> 44.9549356, :name => 'CONWAY @ HOWARD')
-Thing.create(:city_id => 112, :lng => -93.0163994, :lat=> 44.9549866, :name => 'CONWAY @ JAYNE')
-Thing.create(:city_id => 113, :lng => -93.0303457, :lat=> 44.9527736, :name => 'CONWAY @ KENNARD')
-Thing.create(:city_id => 114, :lng => -93.0050414, :lat=> 44.9634136, :name => 'CONWAY @ MCKNIGHT')
-Thing.create(:city_id => 115, :lng => -93.0553749, :lat=> 44.9461527, :name => 'CONWAY @ MOUNDS BLVD')
-Thing.create(:city_id => 116, :lng => -93.012614, :lat=> 44.9576376, :name => 'CONWAY @ PEDERSEN')
-Thing.create(:city_id => 117, :lng => -93.0543651, :lat=> 44.9559776, :name => 'CONWAY @ TELL')
-Thing.create(:city_id => 118, :lng => -93.0899578, :lat=> 44.9537029, :name => 'CONWAY BET GRIFFITH & GOTZIAN')
-Thing.create(:city_id => 119, :lng => -93.0899578, :lat=> 44.9537029, :name => 'CONWAY BET PEDERSEN & HOWARD')
-Thing.create(:city_id => 120, :lng => -93.0899578, :lat=> 44.9537029, :name => 'CONWAY BET VAN DYKE & HAZEL')
-Thing.create(:city_id => 121, :lng => -93.0899578, :lat=> 44.9537029, :name => 'CONWAY ST BET. FRANK & GRIFFITH')
-Thing.create(:city_id => 122, :lng => -93.0899578, :lat=> 44.9537029, :name => 'COOK @ ATLANTIC')
-Thing.create(:city_id => 123, :lng => -93.0899578, :lat=> 44.9537029, :name => 'COOK @ CYPRESS')
-Thing.create(:city_id => 124, :lng => -93.3011989, :lat=> 46.7778004, :name => 'COOK @ DULUTH')
-Thing.create(:city_id => 125, :lng => -93.0899578, :lat=> 44.9537029, :name => 'COOK @ EDGERTON')
-Thing.create(:city_id => 126, :lng => -93.0899578, :lat=> 44.9537029, :name => 'COOK @ FOREST')
-Thing.create(:city_id => 127, :lng => -93.0899578, :lat=> 44.9537029, :name => 'COOK @ FRANK')
-Thing.create(:city_id => 128, :lng => -93.0634178, :lat=> 44.9730064, :name => 'COOK @ GREENBRIER')
-Thing.create(:city_id => 129, :lng => -93.161224, :lat=> 44.866311, :name => 'COOK @ MENDOTA')
-Thing.create(:city_id => 130, :lng => -93.0676139, :lat=> 44.9729841, :name => 'COOK @ PAYNE')
-Thing.create(:city_id => 131, :lng => -93.0899578, :lat=> 44.9537029, :name => 'COOK @ WALSH')
-Thing.create(:city_id => 132, :lng => -93.0899578, :lat=> 44.9537029, :name => 'COOK @ WEIDE')
-Thing.create(:city_id => 133, :lng => -93.0899578, :lat=> 44.9537029, :name => 'COOK AVE E @ ARKWRIGHT R')
-Thing.create(:city_id => 134, :lng => -93.0899578, :lat=> 44.9537029, :name => 'COOK AVE E 1ST HYD. E OF AGATE')
-Thing.create(:city_id => 135, :lng => -93.0899578, :lat=> 44.9537029, :name => 'COOK AVE E 260\' E OF ATLANTIC')
-Thing.create(:city_id => 136, :lng => -93.1059587, :lat=> 44.9729385, :name => 'COOK AVE W @ RICE NE COR')
-Thing.create(:city_id => 137, :lng => -93.1194344, :lat=> 44.9827821, :name => 'COTTAGE @ ARCADE')
-Thing.create(:city_id => 138, :lng => -92.9686839, :lat=> 44.8423524, :name => 'COTTAGE @ BURR')
-Thing.create(:city_id => 139, :lng => -93.0899578, :lat=> 44.9537029, :name => 'COTTAGE @ CUL-DE-SAC W OF WESTERN')
-Thing.create(:city_id => 140, :lng => -93.12632, :lat=> 44.982849, :name => 'COTTAGE @ DALE')
-Thing.create(:city_id => 141, :lng => -93.0899578, :lat=> 44.9537029, :name => 'COTTAGE @ GALTIER')
-Thing.create(:city_id => 142, :lng => -93.0265086, :lat=> 44.9829283, :name => 'COTTAGE @ GREENBRIER')
-Thing.create(:city_id => 143, :lng => -93.0243993, :lat=> 44.9829223, :name => 'COTTAGE @ HAZEL')
-Thing.create(:city_id => 144, :lng => -93.0899578, :lat=> 44.9537029, :name => 'COTTAGE @ MARION')
-Thing.create(:city_id => 145, :lng => -93.0899578, :lat=> 44.9537029, :name => 'COTTAGE @ MENDOTA')
-Thing.create(:city_id => 146, :lng => -93.105965, :lat=> 44.982647, :name => 'COTTAGE @ RICE')
-Thing.create(:city_id => 147, :lng => -93.0899578, :lat=> 44.9537029, :name => 'COTTAGE @ WALSH')
-Thing.create(:city_id => 148, :lng => -93.0243993, :lat=> 44.9829223, :name => 'COTTAGE @ WESTERN')
-Thing.create(:city_id => 149, :lng => -93.0899578, :lat=> 44.9537029, :name => 'COTTAGE @ WINTHROP')
-Thing.create(:city_id => 150, :lng => -93.0899578, :lat=> 44.9537029, :name => 'COTTAGE @ WOODBRIDGE')
-Thing.create(:city_id => 151, :lng => -93.0278023, :lat=> 44.9829355, :name => 'COTTAGE AVE E @ FLANDRAU NE COR')
-Thing.create(:city_id => 152, :lng => -93.0329056, :lat=> 44.9829516, :name => 'COTTAGE AVE E @ GERMAIN NE COR')
-Thing.create(:city_id => 153, :lng => -93.0354625, :lat=> 44.9829506, :name => 'COTTAGE AVE E @ HAZELWOOD NE COR')
-Thing.create(:city_id => 154, :lng => -93.0899578, :lat=> 44.9537029, :name => 'COTTAGE AVE E @ RUTH')
-Thing.create(:city_id => 155, :lng => -93.0899578, :lat=> 44.9537029, :name => 'COTTAGE AVE E BET FLANDRAU & WHITE BEAR')
-Thing.create(:city_id => 156, :lng => -93.0899578, :lat=> 44.9537029, :name => 'COTTAGE AVE E BET HAZEL & FURNESS')
-Thing.create(:city_id => 157, :lng => -93.0899578, :lat=> 44.9537029, :name => 'COTTAGE BET GALTIER & FARRINGTON')
-Thing.create(:city_id => 158, :lng => -93.0899578, :lat=> 44.9537029, :name => 'COTTAGE BET GREENBRIER & WALSH')
-Thing.create(:city_id => 159, :lng => -93.0899578, :lat=> 44.9537029, :name => 'COTTAGE BET GROTTO & AVON')
-Thing.create(:city_id => 160, :lng => -93.0408355, :lat=> 44.9666294, :name => 'COTTAGE BET PAYNE & GREENBRIER')
-Thing.create(:city_id => 161, :lng => -93.0899578, :lat=> 44.9537029, :name => 'COTTAGE BET RUTH & WINTHROP')
-Thing.create(:city_id => 162, :lng => -93.0899578, :lat=> 44.9537029, :name => 'COTTAGE BET WALSH & ARCADE')
-Thing.create(:city_id => 163, :lng => -93.0899578, :lat=> 44.9537029, :name => 'COTTAGE BET WHITE BEAR & HAZEL')
-Thing.create(:city_id => 164, :lng => -93.0899578, :lat=> 44.9537029, :name => 'CRAIG @ LARPENTEUR')
-Thing.create(:city_id => 165, :lng => -93.0899578, :lat=> 44.9537029, :name => 'CRETIN AVE N @ MISS RIVER BLVD')
-Thing.create(:city_id => 166, :lng => -93.0899578, :lat=> 44.9537029, :name => 'CRETIN AVE N @ RIVERWOOD')
-Thing.create(:city_id => 167, :lng => -93.192505, :lat=> 44.946289, :name => 'CRETIN AVE N @ SELBY R')
-Thing.create(:city_id => 168, :lng => -93.19252, :lat=> 44.923512, :name => 'CRETIN AVE S @ HARTFORD')
-Thing.create(:city_id => 169, :lng => -93.192528, :lat=> 44.92168, :name => 'CRETIN AVE S @ SCHEFFER R')
-Thing.create(:city_id => 170, :lng => -92.7132995, :lat=> 44.9076116, :name => 'CROCUS HILL @ ALLEY 289')
-Thing.create(:city_id => 171, :lng => -93.0899578, :lat=> 44.9537029, :name => 'CROCUS HILL BET ALLEY 289 & DALE')
-Thing.create(:city_id => 172, :lng => -93.1233082, :lat=> 44.9377981, :name => 'CROCUS PL 400\' S OF CROCUS HILL')
-Thing.create(:city_id => 173, :lng => -93.0899578, :lat=> 44.9537029, :name => 'CROMWELL @ DOANE')
-Thing.create(:city_id => 174, :lng => -93.0899578, :lat=> 44.9537029, :name => 'CROMWELL @ ELLIS')
-Thing.create(:city_id => 175, :lng => -93.0899578, :lat=> 44.9537029, :name => 'CROMWELL @ WABASH')
-Thing.create(:city_id => 176, :lng => -93.2034588, :lat=> 44.9646132, :name => 'CROMWELL AVE @ FRANKLIN')
-Thing.create(:city_id => 177, :lng => -93.1936781, :lat=> 44.9610937, :name => 'CROMWELL AVE @ MYRTLE')
-Thing.create(:city_id => 178, :lng => -93.0899578, :lat=> 44.9537029, :name => 'CROMWELL AVE 200\' S OF MANVEL')
-Thing.create(:city_id => 179, :lng => -93.0899578, :lat=> 44.9537029, :name => 'CUMBERLAND @ COOK')
-Thing.create(:city_id => 180, :lng => -93.0899578, :lat=> 44.9537029, :name => 'CUMBERLAND @ HOYT')
-Thing.create(:city_id => 181, :lng => -93.0899578, :lat=> 44.9537029, :name => 'CUMBERLAND @ IDAHO')
-Thing.create(:city_id => 182, :lng => -93.0899578, :lat=> 44.9537029, :name => 'CUMBERLAND @ LARPENTEUR')
-Thing.create(:city_id => 183, :lng => -93.1172752, :lat=> 44.9881899, :name => 'CUMBERLAND @ MARYLAND')
-Thing.create(:city_id => 184, :lng => -93.0899578, :lat=> 44.9537029, :name => 'CUMBERLAND @ NEBRASKA')
-Thing.create(:city_id => 185, :lng => -93.0899578, :lat=> 44.9537029, :name => 'CUMBERLAND 1ST HYD. N OF COOK')
-Thing.create(:city_id => 186, :lng => -93.0899578, :lat=> 44.9537029, :name => 'CUMBERLAND 1ST HYD. N OF ENGLEWOODW')
-Thing.create(:city_id => 187, :lng => -93.1042272, :lat=> 44.9719238, :name => 'CUMBERLAND 1ST HYD. S OF MARYLAND')
-Thing.create(:city_id => 188, :lng => -93.0899578, :lat=> 44.9537029, :name => 'CUMBERLAND BET ARLINGTON & HOYT')
-Thing.create(:city_id => 189, :lng => -93.0899578, :lat=> 44.9537029, :name => 'CUMBERLAND BET HOYT & NEBRASKA')
-Thing.create(:city_id => 190, :lng => -93.0899578, :lat=> 44.9537029, :name => 'CURFEW @ ELLIS')
-Thing.create(:city_id => 191, :lng => -93.205345, :lat=> 44.964554, :name => 'CURFEW @ FRANKLIN')
-Thing.create(:city_id => 192, :lng => -93.0899578, :lat=> 44.9537029, :name => 'CURFEW(VAC) @ MYRTLE(VAC)')
-Thing.create(:city_id => 193, :lng => -93.1557895, :lat=> 44.9716801, :name => 'CUSHING CIR 1ST HYD N OF ENERGY PARK')
-Thing.create(:city_id => 194, :lng => -93.0899578, :lat=> 44.9537029, :name => 'CUSHING CIR 1ST HYD. S #1160 -')
-Thing.create(:city_id => 195, :lng => -93.0899578, :lat=> 44.9537029, :name => 'CUSHING CIR 2ND HYD. S #1160 -')
-Thing.create(:city_id => 196, :lng => -93.1557895, :lat=> 44.9716801, :name => 'CUSHING CIR E 1ST HYD. N OF ENERGY PARK')
-Thing.create(:city_id => 197, :lng => -93.1557895, :lat=> 44.9716801, :name => 'CUSHING CIR E 2ND HYD. N OF ENERGY PARK')
-Thing.create(:city_id => 198, :lng => -93.1557895, :lat=> 44.9716801, :name => 'CUSHING CIR E 3RD HYD. N OF ENERGY PARK')
-Thing.create(:city_id => 199, :lng => -93.1557895, :lat=> 44.9716801, :name => 'CUSHING CIR W 2ND HYD. N OF ENERGY PARK')
-Thing.create(:city_id => 200, :lng => -93.0899578, :lat=> 44.9537029, :name => 'CUSTER(VAC) @ E PLATO')
-Thing.create(:city_id => 201, :lng => -93.0899578, :lat=> 44.9537029, :name => 'CUTLER @ LARRY HO')
-Thing.create(:city_id => 202, :lng => -93.012329, :lat=> 44.941109, :name => 'CUTLER @ UPPER AFTON')
-Thing.create(:city_id => 203, :lng => -93.0899578, :lat=> 44.9537029, :name => 'DAHL @ CUL-DE-SAC W OF VIVIAN')
-Thing.create(:city_id => 204, :lng => -93.004692, :lat=> 44.917988, :name => 'DAHL @ MCKNIGHT')
-Thing.create(:city_id => 205, :lng => -93.072258, :lat=> 44.9756563, :name => 'DALE @ GERANIUM')
-Thing.create(:city_id => 206, :lng => -93.1568214, :lat=> 44.9379071, :name => 'DALE @ GOODRICH')
-Thing.create(:city_id => 207, :lng => -93.1684209, :lat=> 44.9400833, :name => 'DALE @ GRAND')
-Thing.create(:city_id => 208, :lng => -93.1096616, :lat=> 44.9882237, :name => 'DALE @ HOYT')
-Thing.create(:city_id => 209, :lng => -93.1027039, :lat=> 44.9918897, :name => 'DALE @ LARPENTEUR')
-Thing.create(:city_id => 210, :lng => -93.1261718, :lat=> 44.9864089, :name => 'DALE @ NEBRASKA')
-Thing.create(:city_id => 211, :lng => -93.126389, :lat=> 44.979252, :name => 'DALE @ ORANGE')
-Thing.create(:city_id => 212, :lng => -93.124814, :lat=> 44.9566501, :name => 'DALE @ SHERBURNE')
+# For working on Heroku, the dev db only allows for
+# 10,000 rows so we want to limit this for now
+rowlimit = 9000
+
+# For the St Paul data, it comes as a shapefile, so we convert it to geojson
+# as that will be easier to work with.  (also, convert to lat/lon 4326)
+#
+# Use this command: ogr2ogr -f GeoJSON -t_srs EPSG:4326 db/data/st-paul/st-paul.json db/data/st-paul/Hydrants.shp
+
+spjson = File.read('db/data/st-paul/st-paul.json')
+sphydrants = JSON.parse(spjson)
+spcount = 0
+spid = 10000000
+spfound = {};
+
+sphydrants['features'].each do |feature|
+  # Check limit
+  if spcount > rowlimit
+    break
+  end
+
+  # Add a prefix for the saint paul data.  Some don't
+  # have asset ids
+  if feature['properties']['ASSET_ID'] != nil
+    id = Integer('11' + feature['properties']['ASSET_ID'])
+  else
+    spid = spid + 1
+    id = 1100000000 + spid
+  end
+  
+  # For some reason there are duplicate asset id
+  if spfound[id] == true
+    spid = spid + 1
+    id = 1100000000 + spid
+  end
+  spfound[id] = true
+  
+  # Save new row, check if exists first
+  spexists = Thing.find_by_city_id(id)
+  if spexists == nil
+    Thing.create(
+      :city_id => id, 
+      :lng => feature['geometry']['coordinates'][0], 
+      :lat=> feature['geometry']['coordinates'][1], 
+      :name => ''
+    )
+    spcount = spcount + 1
+  end
+end
+
+puts "Imported #{spcount} St Paul Hydrants"
