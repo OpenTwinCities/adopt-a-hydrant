@@ -21,8 +21,9 @@ class Thing < ActiveRecord::Base
 end
 
 # For working on Heroku, the dev db only allows for
-# 10,000 rows so we want to limit this for now
-rowlimit = 9000
+# 10,000 rows so we want to limit this for now.
+# Use 0 for no rowlimit
+rowlimit = 0
 
 # For the St Paul data, it comes as a shapefile, so we convert it to geojson
 # as that will be easier to work with.  (also, convert to lat/lon 4326)
@@ -37,7 +38,7 @@ spfound = {};
 
 sphydrants['features'].each do |feature|
   # Check limit
-  if spcount > rowlimit
+  if rowlimit != 0 && spcount > rowlimit
     break
   end
 
