@@ -1,19 +1,19 @@
 $(function() {
-  var center = new google.maps.LatLng(44.968077, -93.123121);
+  var center = new google.maps.LatLng(44.95119307998577, -93.18878173828125);
   var mapOptions = {
     center: center,
-    disableDoubleClickZoom: true,
+    //disableDoubleClickZoom: true,
     keyboardShortcuts: false,
     mapTypeControl: false,
     mapTypeId: google.maps.MapTypeId.ROADMAP,
-    maxZoom: 19,
-    minZoom: 15,
-    panControl: false,
+    maxZoom: 20,
+    minZoom: 12,
+    //panControl: false,
     rotateControl: false,
     scaleControl: false,
-    scrollwheel: false,
+    //scrollwheel: false,
     streetViewControl: true,
-    zoom: 15,
+    zoom: 12,
     zoomControl: true
   };
   var map = new google.maps.Map(document.getElementById("map"), mapOptions);
