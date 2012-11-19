@@ -17,6 +17,12 @@ h2 {
   line-height: 30px;
   margin: 10px 0;
 }
+h2.beta {
+  margin: -10px 16px 10px 0;
+  color: #787878;
+  text-align: right;
+  text-transform: lowercase;
+}
 
 form {
   margin-bottom: 0;
