@@ -16,3 +16,7 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+
+# Minneapolis has an NDA with their data
+# so it cannot be shared publicly.
+/db/data/minneapolis/*
