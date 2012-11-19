@@ -72,3 +72,64 @@ sphydrants['features'].each do |feature|
 end
 
 puts "Imported #{spcount} St Paul Hydrants"
+
+
+# For the Minneapolis data, it comes as a shapefile, so we convert it to geojson
+# as that will be easier to work with.  (also, convert to lat/lon 4326)
+#
+# Use this command: ogr2ogr -f GeoJSON -t_srs EPSG:4326 db/data/minneapolis/minneapolis.json db/data/minneapolis/Hydrant.shp
+#
+# The Minneapolis data also comes with an NDA so it cannot be
+# uploaded to github.
+
+mplsfile = 'db/data/minneapolis/minneapolis.json'
+if !File.exist?(mplsfile)
+  puts 'Minneapolis file not found.'
+else
+  mplsjson = File.read(mplsfile)
+  mplshydrants = JSON.parse(mplsjson)
+  mplscount = 0
+  mplsid = 20000000
+  mplsfound = {};
+  
+  mplshydrants['features'].each do |feature|
+    # Check limit
+    if rowlimit != 0 && mplscount > rowlimit
+      break
+    end
+    
+    # The GlobalID is the attribute that should be used
+    # for the ID, but the database only wants to
+    # to use integer identifiers.
+  
+    # Add a prefix for the saint paul data.  Some don't
+    # have asset ids
+    if feature['properties']['OBJECTID'] != nil
+      id = 1200000000 + Integer(feature['properties']['OBJECTID'])
+    else
+      mplsid = mplsid + 1
+      id = 1200000000 + mplsid
+    end
+    
+    # If there are duplicated
+    if mplsfound[id] == true
+      mplsid = mplsid + 1
+      id = 1200000000 + mplsid
+    end
+    mplsfound[id] = true
+    
+    # Save new row, check if exists first
+    mplsexists = Thing.find_by_city_id(id)
+    if mplsexists == nil
+      Thing.create(
+        :city_id => id, 
+        :lng => feature['geometry']['coordinates'][0], 
+        :lat=> feature['geometry']['coordinates'][1], 
+        :name => ''
+      )
+      mplscount = mplscount + 1
+    end
+  end
+  
+  puts "Imported #{mplscount} Minneapolis Hydrants"
+end
