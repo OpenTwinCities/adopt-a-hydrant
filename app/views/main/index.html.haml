@@ -4,6 +4,8 @@
       %h1
         = image_tag "logos/adopt-a-hydrant.png", :alt => t("titles.main", :thing => t("defaults.thing").titleize), :title => t("titles.main", :thing => t("defaults.thing").titleize)
       %h2.beta
+        %span
+          = t("titles.city")
         = t("titles.beta")
       %p.alert-message.block-message#tagline
         = t("defaults.tagline")

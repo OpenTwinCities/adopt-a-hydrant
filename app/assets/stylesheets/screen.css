@@ -20,8 +20,12 @@ h2 {
 h2.beta {
   margin: -10px 16px 10px 0;
   color: #787878;
-  text-align: right;
   text-transform: lowercase;
+}
+h2.beta span {
+  color: #0AADFF;
+  text-transform: uppercase;
+  font-weight: bold;
 }
 
 form {
