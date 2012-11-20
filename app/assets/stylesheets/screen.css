@@ -217,3 +217,18 @@ img.lock {
   opacity: 0.8;
   filter: alpha(opacity=80); /* For IE8 and earlier */
 }
+
+/**
+ * Modal styles
+ */
+.modal-body ul {
+  text-align: left;
+  margin-top: 1em;
+}
+
+.modal-footer .btn,
+.modal-footer a.btn {
+  display: inline;
+  width: inherit;
+  text-align: right;
+}

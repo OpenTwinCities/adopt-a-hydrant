@@ -36,6 +36,11 @@
         %p
           %a{:href => URI.escape("mailto:adoptahydrant@opentwincities.org?subject=#{t("titles.main", :thing => t("defaults.thing").titleize)} - #{t("links.feedback").titleize}")}
             = t("links.feedback")
+      #about-link
+        %p
+          = link_to("About", "#about", :id => "about_link", :"data-toggle" => "modal")
+        = render :partial => "sidebar/about"
+        
     .table-cell.map-container
       #map
         &nbsp;
