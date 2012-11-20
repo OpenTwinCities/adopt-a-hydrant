@@ -695,6 +695,9 @@ $(function() {
   
   // To present the user with instructions, we press the About button first.
   $(document).ready(function() {
-    $('a#about_link').trigger('click');
+    // Display if not signed in.  Body class will tell us.
+    if ($('body').hasClass('signed-out')) {
+      $('a#about_link').trigger('click');
+    }
   });
 });
