@@ -221,9 +221,13 @@ img.lock {
 /**
  * Modal styles
  */
-.modal-body ul {
+.modal-body ol {
   text-align: left;
   margin-top: 1em;
+  margin-bottom: 1em;
+}
+.modal-body ol li {
+  margin-bottom: .5em;
 }
 
 .modal-footer .btn,

@@ -692,4 +692,9 @@ $(function() {
     return false;
   });
   $('.alert-message').alert();
+  
+  // To present the user with instructions, we press the About button first.
+  $(document).ready(function() {
+    $('a#about_link').trigger('click');
+  });
 });
