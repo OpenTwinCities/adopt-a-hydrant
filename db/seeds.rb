@@ -78,9 +78,6 @@ puts "Imported #{spcount} St Paul Hydrants"
 # as that will be easier to work with.  (also, convert to lat/lon 4326)
 #
 # Use this command: ogr2ogr -f GeoJSON -t_srs EPSG:4326 db/data/minneapolis/minneapolis.json db/data/minneapolis/Hydrant.shp
-#
-# The Minneapolis data also comes with an NDA so it cannot be
-# uploaded to github.
 
 mplsfile = 'db/data/minneapolis/minneapolis.json'
 if !File.exist?(mplsfile)
