@@ -77,7 +77,7 @@ puts "Imported #{spcount} St Paul Hydrants"
 # For the Minneapolis data, it comes as a shapefile, so we convert it to geojson
 # as that will be easier to work with.  (also, convert to lat/lon 4326)
 #
-# Use this command: ogr2ogr -f GeoJSON -t_srs EPSG:4326 db/data/minneapolis/minneapolis.json db/data/minneapolis/Hydrant.shp
+# Use this command: ogr2ogr -f GeoJSON -t_srs EPSG:4326 db/data/minneapolis/minneapolis.json db/data/minneapolis/Hydrant.shp  
 
 mplsfile = 'db/data/minneapolis/minneapolis.json'
 if !File.exist?(mplsfile)
