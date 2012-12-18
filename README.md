@@ -6,19 +6,6 @@ For original documentation, see the this [Adopt-a-Hydrant Github page](https://g
 
 ## Installation and Setup
 
-### Rails Admin
-
-Run the Rails Admin setup.  Simply use the defaults (press ENTER);
-
-    rails g rails_admin:install
-    
-The data seeding (see below) will create an admin user.  Make sure to log into the application with the default credentials:
-
-    accounts@opentwincities.org
-    CHANGE.ME
-
-And '''CHANGE THE PASSWORD'''.  Do note that this may not be the best way to make a new admin user, so suggestions are welcome.
-
 ### Install locally
 
 These instructions are for Mac.
@@ -39,3 +26,15 @@ These instructions are for Mac.
 1. Set up the db: ```heroku run rake db:create; heroku run rake db:schema:load```
 1. Seed the data: ```heroku run rake db:seed```
 1. Go to application: http://otc-adoptahydrant.herokuapp.com
+
+### Rails Admin
+
+The data seeding (see below) will create an admin user.  Make sure to log into the application with the default credentials:
+
+    accounts@opentwincities.org
+    CHANGE.ME
+
+And ***CHANGE THE PASSWORD***.  Do note that this may not be the best way to make a new admin user, so suggestions are welcome.
+
+The admin dashboard is located at `/admin` on your server.
+
