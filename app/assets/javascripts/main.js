@@ -7,6 +7,7 @@
 
 $(function() {
   var o = a.options;
+  var s = a.strings;
   
   // Variables used throughout
   var activeThingId;
@@ -267,7 +268,7 @@ $(function() {
               url: '/sidebar/search',
               data: {
                 'flash': {
-                  'notice': "<%= I18n.t("notices.signed_up") %>"
+                  'notice': s.notices.signed_up
                 }
               },
               success: function(data) {
@@ -311,7 +312,7 @@ $(function() {
               url: '/sidebar/search',
               data: {
                 'flash': {
-                  'notice': "<%= I18n.t("notices.signed_in") %>"
+                  'notice': s.notices.signed_in
                 }
               },
               success: function(data) {
@@ -377,7 +378,7 @@ $(function() {
           data: {
             'thing_id': activeThingId,
             'flash': {
-              'notice': "<%= I18n.t("notices.adopted", thing: I18n.t("defaults.thing")) %>"
+              'notice': s.notices.adopted_thing
             }
           },
           success: function(data) {
@@ -393,7 +394,7 @@ $(function() {
     return false;
   });
   $('#abandon_form').live('submit', function() {
-    var answer = window.confirm("Are you sure you want to abandon this <%= I18n.t("defaults.thing") %>?")
+    var answer = window.confirm("Are you sure you want to abandon this " + s.defaults.thing + "?")
     if(answer) {
       var submitButton = $("#abandon_form input[type='submit']");
       $(submitButton).attr("disabled", true);
@@ -420,7 +421,7 @@ $(function() {
             data: {
               'thing_id': activeThingId,
               'flash': {
-                'warning': "<%= I18n.t("notices.abandoned", thing: I18n.t("defaults.thing").capitalize) %>"
+                'warning': s.notices.abondoned_thing
               }
             },
             success: function(data) {
@@ -589,7 +590,7 @@ $(function() {
           url: '/sidebar/combo_form',
           data: {
             'flash': {
-              'warning': "<%= I18n.t("notices.signed_out") %>"
+              'warning': s.notices.signed_out
             }
           },
           success: function(data) {
@@ -656,7 +657,7 @@ $(function() {
           data: {
             'thing_id': activeThingId,
             'flash': {
-              'notice': "<%= I18n.t("notices.reminder_sent") %>"
+              'notice': s.notices.reminder_sent
             }
           },
           success: function(data) {

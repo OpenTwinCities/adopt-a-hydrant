@@ -1,8 +1,12 @@
-# Adopt-a-Hydrant (Twin Cities) [![Build Status](https://secure.travis-ci.org/codeforamerica/adopt-a-hydrant.png?branch=master)][travis] [![Dependency Status](https://gemnasium.com/codeforamerica/adopt-a-hydrant.png?travis)][gemnasium]
+# Adopt-a-Hydrant (Twin Cities)
 
 Claim responsibility for shoveling out a fire hydrant after it snows.
 
 For original documentation, see the this [Adopt-a-Hydrant Github page](https://github.com/codeforamerica/adopt-a-hydrant).
+
+## Have an Issue, Comment, Feature, Suggestion?
+
+Use the [Issue Queue](https://github.com/OpenTwinCities/adopt-a-hydrant/issues).
 
 ## Installation and Setup
 
@@ -38,3 +42,11 @@ And ***CHANGE THE PASSWORD***.  Do note that this may not be the best way to mak
 
 The admin dashboard is located at `/admin` on your server.
 
+## Development
+
+### Javascript Development
+
+Still a work in progress.
+
+* Configuration values should go in: ```app/assets/javascripts/main.conf.js.erb```
+* Main application logic in: ```app/assets/javascripts/main.js```
