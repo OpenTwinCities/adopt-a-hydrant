@@ -4,7 +4,6 @@
 // main.conf.js.erb
 
 (function($, a, w, undefined) {
-
 $(function() {
   var o = a.options;
   var s = a.strings;
@@ -15,6 +14,33 @@ $(function() {
   var activeInfoWindow;
   var thingIds = [];
   var isWindowOpen = false;
+  
+  // Backbone objects.  Model for "Thing"
+  var Thing = Backbone.Model.extend({
+    
+  });
+  // Model for User
+  var User = Backbone.Collection.extend({
+    
+  });
+  
+  // Collection for multiple things
+  var Things = Backbone.Collection.extend({
+    
+  });
+  
+  // A marker that is a thing
+  var ThingMarker = Backbone.View.extend({
+    
+  });
+  // View of things on a map
+  var ThingsMap = Backbone.View.extend({
+    
+  });
+  // View of for User, like logging in
+  var UserView = Backbone.View.extend({
+    
+  });
   
   // Create map object
   a.map = new google.maps.Map(document.getElementById("map"), o.mapOptions);
