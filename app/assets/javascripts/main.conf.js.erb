@@ -1,0 +1,43 @@
+// This file is used to hold configuration and create
+// namespaced object for the application.
+//
+// Maybe not the best way to handle it.
+
+var Adopta = Adopta || {};
+Adopta.options = Adopta.options || {};
+
+// Map options
+Adopta.options.center = new google.maps.LatLng(44.95119307998577, -93.18878173828125);
+Adopta.options.mapOptions = {
+  center: Adopta.options.center,
+  //disableDoubleClickZoom: true,
+  keyboardShortcuts: false,
+  mapTypeControl: false,
+  mapTypeId: google.maps.MapTypeId.ROADMAP,
+  maxZoom: 20,
+  minZoom: 12,
+  //panControl: false,
+  rotateControl: false,
+  scaleControl: false,
+  //scrollwheel: false,
+  streetViewControl: true,
+  zoom: 12,
+  zoomControl: true
+};
+
+// Markers
+Adopta.options.greenMarkerImage = new google.maps.MarkerImage('<%= image_path 'markers/green.png' %>',
+  new google.maps.Size(27.0, 37.0),
+  new google.maps.Point(0, 0),
+  new google.maps.Point(13.0, 18.0)
+);
+Adopta.options.redMarkerImage = new google.maps.MarkerImage('<%= image_path 'markers/red.png' %>',
+  new google.maps.Size(27.0, 37.0),
+  new google.maps.Point(0, 0),
+  new google.maps.Point(13.0, 18.0)
+);
+Adopta.options.markerShadowImage = new google.maps.MarkerImage('<%= image_path 'markers/shadow.png' %>',
+  new google.maps.Size(46.0, 37.0),
+  new google.maps.Point(0, 0),
+  new google.maps.Point(13.0, 18.0)
+);

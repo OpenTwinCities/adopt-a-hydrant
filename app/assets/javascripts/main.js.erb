@@ -1,57 +1,35 @@
+// Main JS for Adopta.
+//
+// Adopta, aka, is the configurarion object expected from
+// main.conf.js.erb
+
+(function($, a, w, undefined) {
+
 $(function() {
-  var center = new google.maps.LatLng(44.95119307998577, -93.18878173828125);
-  var mapOptions = {
-    center: center,
-    //disableDoubleClickZoom: true,
-    keyboardShortcuts: false,
-    mapTypeControl: false,
-    mapTypeId: google.maps.MapTypeId.ROADMAP,
-    maxZoom: 20,
-    minZoom: 12,
-    //panControl: false,
-    rotateControl: false,
-    scaleControl: false,
-    //scrollwheel: false,
-    streetViewControl: true,
-    zoom: 12,
-    zoomControl: true
-  };
-  var map = new google.maps.Map(document.getElementById("map"), mapOptions);
-  var size = new google.maps.Size(27.0, 37.0);
-  var origin = new google.maps.Point(0, 0);
-  var anchor = new google.maps.Point(13.0, 18.0);
-  var greenMarkerImage = new google.maps.MarkerImage('<%= image_path 'markers/green.png' %>',
-    size,
-    origin,
-    anchor
-  );
-  var redMarkerImage = new google.maps.MarkerImage('<%= image_path 'markers/red.png' %>',
-    size,
-    origin,
-    anchor
-  );
-  var markerShadowImage = new google.maps.MarkerImage('<%= image_path 'markers/shadow.png' %>',
-    new google.maps.Size(46.0, 37.0),
-    origin,
-    anchor
-  );
+  var o = a.options;
+  
+  // Variables used throughout
   var activeThingId;
   var activeMarker;
   var activeInfoWindow;
-  var isWindowOpen = false;
   var thingIds = [];
+  var isWindowOpen = false;
+  
+  // Create map object
+  a.map = new google.maps.Map(document.getElementById("map"), o.mapOptions);
+
   function addMarker(thingId, point, color) {
     if(color === 'green') {
-      var image = greenMarkerImage;
+      var image = o.greenMarkerImage;
     } else if(color === 'red') {
-      var image = redMarkerImage;
+      var image = o.redMarkerImage;
     }
     var marker = new google.maps.Marker({
       animation: google.maps.Animation.DROP,
       icon: image,
-      map: map,
+      map: a.map,
       position: point,
-      shadow: markerShadowImage
+      shadow: o.markerShadowImage
     });
     google.maps.event.addListener(marker, 'click', function() {
       if(activeInfoWindow) {
@@ -76,7 +54,7 @@ $(function() {
           // Prevent race condition, which could lead to multiple windows being open at the same time.
           if(infoWindow === activeInfoWindow) {
             infoWindow.setContent(data);
-            infoWindow.open(map, marker);
+            infoWindow.open(a.map, marker);
             isWindowOpen = true;
           }
         }
@@ -128,8 +106,8 @@ $(function() {
       }
     });
   }
-  google.maps.event.addListener(map, 'idle', function() {
-    var center = map.getCenter();
+  google.maps.event.addListener(a.map, 'idle', function() {
+    var center = a.map.getCenter();
     addMarkersAround(center.lat(), center.lng());
   });
   $('#address_form').live('submit', function() {
@@ -163,8 +141,8 @@ $(function() {
             $('#address').parent().removeClass('error');
             addMarkersAround(data[0], data[1]);
             var center = new google.maps.LatLng(data[0], data[1]);
-            map.setCenter(center);
-            map.setZoom(19);
+            a.map.setCenter(center);
+            a.map.setZoom(19);
           }
         }
       });
@@ -405,8 +383,8 @@ $(function() {
           success: function(data) {
             activeInfoWindow.close();
             activeInfoWindow.setContent(data);
-            activeInfoWindow.open(map, activeMarker);
-            activeMarker.setIcon(greenMarkerImage);
+            activeInfoWindow.open(a.map, activeMarker);
+            activeMarker.setIcon(o.greenMarkerImage);
             activeMarker.setAnimation(google.maps.Animation.BOUNCE);
           }
         });
@@ -448,8 +426,8 @@ $(function() {
             success: function(data) {
               activeInfoWindow.close();
               activeInfoWindow.setContent(data);
-              activeInfoWindow.open(map, activeMarker);
-              activeMarker.setIcon(redMarkerImage);
+              activeInfoWindow.open(a.map, activeMarker);
+              activeMarker.setIcon(o.redMarkerImage);
               activeMarker.setAnimation(null);
             }
           });
@@ -634,7 +612,7 @@ $(function() {
       success: function(data) {
         activeInfoWindow.close();
         activeInfoWindow.setContent(data);
-        activeInfoWindow.open(map, activeMarker);
+        activeInfoWindow.open(a.map, activeMarker);
       }
     });
     return false;
@@ -684,13 +662,14 @@ $(function() {
           success: function(data) {
             activeInfoWindow.close();
             activeInfoWindow.setContent(data);
-            activeInfoWindow.open(map, activeMarker);
+            activeInfoWindow.open(a.map, activeMarker);
           }
         });
       }
     });
     return false;
   });
+  
   $('.alert-message').alert();
   
   // To present the user with instructions, we press the About button first.
@@ -701,3 +680,5 @@ $(function() {
     }
   });
 });
+
+})(jQuery, Adopta, window);
