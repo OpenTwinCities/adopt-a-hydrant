@@ -673,12 +673,34 @@ $(function() {
   
   $('.alert-message').alert();
   
-  // To present the user with instructions, we press the About button first.
+  // Functio to get updated stats
+  function updateStats(){
+  	$.ajax({
+        type: 'GET',
+        url: '/sidebar/stat',
+        data: {
+          'utf8': '✓',
+          'authenticity_token': $("input[name='authenticity_token']").val()
+        },
+        error: function(jqXHR) {
+          // Handle error here.
+        },
+        success: function(data) {
+          $('.stats-container').html(data);
+        }
+  	});
+  };
+  
+  // When ready
   $(document).ready(function() {
+    // To present the user with instructions, we press the About button first.
     // Display if not signed in.  Body class will tell us.
     if ($('body').hasClass('signed-out')) {
       $('a#about_link').trigger('click');
     }
+    
+    // Update stats
+    updateStats();
   });
 });
 
