@@ -63,18 +63,19 @@ $(function() {
     });
     thingIds.push(thingId);
   }
-  function addMarkersAround(lat, lng) {
+  
+  function getMarkers(options) {
     var submitButton = $("#address_form input[type='submit']");
+    var dataOptions = $.extend({
+      'utf8': '✓',
+      'authenticity_token': $('#address_form input[name="authenticity_token"]').val(),
+      'limit': $('#address_form input[name="limit"]').val()
+    }, options);
+    
     $.ajax({
       type: 'GET',
       url: '/things.json',
-      data: {
-        'utf8': '✓',
-        'authenticity_token': $('#address_form input[name="authenticity_token"]').val(),
-        'lat': lat,
-        'lng': lng,
-        'limit': $('#address_form input[name="limit"]').val()
-      },
+      data: dataOptions,
       error: function(jqXHR) {
         $(submitButton).attr("disabled", false);
       },
@@ -107,6 +108,14 @@ $(function() {
       }
     });
   }
+  
+  function addMarkersAround(lat, lng) {
+    getMarkers({
+      lat: lat,
+      lng: lng
+    });
+  }
+  
   google.maps.event.addListener(a.map, 'idle', function() {
     var center = a.map.getCenter();
     addMarkersAround(center.lat(), center.lng());
@@ -701,6 +710,13 @@ $(function() {
     
     // Update stats
     updateStats();
+    
+    // Let's get the first 100 adopted hydrants to help
+    // make the app more exciting.
+    getMarkers({
+      adopted: 'true',
+      limit: '100'
+    });
   });
 });
 
