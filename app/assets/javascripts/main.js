@@ -63,18 +63,19 @@ $(function() {
     });
     thingIds.push(thingId);
   }
-  function addMarkersAround(lat, lng) {
+  
+  function getMarkers(options) {
     var submitButton = $("#address_form input[type='submit']");
+    var dataOptions = $.extend({
+      'utf8': '✓',
+      'authenticity_token': $('#address_form input[name="authenticity_token"]').val(),
+      'limit': $('#address_form input[name="limit"]').val()
+    }, options);
+    
     $.ajax({
       type: 'GET',
       url: '/things.json',
-      data: {
-        'utf8': '✓',
-        'authenticity_token': $('#address_form input[name="authenticity_token"]').val(),
-        'lat': lat,
-        'lng': lng,
-        'limit': $('#address_form input[name="limit"]').val()
-      },
+      data: dataOptions,
       error: function(jqXHR) {
         $(submitButton).attr("disabled", false);
       },
@@ -107,6 +108,14 @@ $(function() {
       }
     });
   }
+  
+  function addMarkersAround(lat, lng) {
+    getMarkers({
+      lat: lat,
+      lng: lng
+    });
+  }
+  
   google.maps.event.addListener(a.map, 'idle', function() {
     var center = a.map.getCenter();
     addMarkersAround(center.lat(), center.lng());
@@ -673,12 +682,41 @@ $(function() {
   
   $('.alert-message').alert();
   
-  // To present the user with instructions, we press the About button first.
+  // Functio to get updated stats
+  function updateStats(){
+  	$.ajax({
+        type: 'GET',
+        url: '/sidebar/stat',
+        data: {
+          'utf8': '✓',
+          'authenticity_token': $("input[name='authenticity_token']").val()
+        },
+        error: function(jqXHR) {
+          // Handle error here.
+        },
+        success: function(data) {
+          $('.stats-container').html(data);
+        }
+  	});
+  };
+  
+  // When ready
   $(document).ready(function() {
+    // To present the user with instructions, we press the About button first.
     // Display if not signed in.  Body class will tell us.
     if ($('body').hasClass('signed-out')) {
       $('a#about_link').trigger('click');
     }
+    
+    // Update stats
+    updateStats();
+    
+    // Let's get the first 100 adopted hydrants to help
+    // make the app more exciting.
+    getMarkers({
+      adopted: 'true',
+      limit: '100'
+    });
   });
 });
 

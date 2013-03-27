@@ -2,7 +2,12 @@ class ThingsController < ApplicationController
   respond_to :json
 
   def show
-    @things = Thing.find_closest(params[:lat], params[:lng], params[:limit] || 10)
+    if params[:adopted] == "true"
+      @things = Thing.where("user_id is not null").limit(params[:limit] || 100)
+    else
+      @things = Thing.find_closest(params[:lat], params[:lng], params[:limit] || 10)
+    end
+    
     unless @things.blank?
       respond_with @things
     else

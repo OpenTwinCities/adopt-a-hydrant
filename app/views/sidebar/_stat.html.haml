@@ -1,0 +1,19 @@
+#stats-container-inner
+  %div{:id=>'stats-container-wrapper'}
+    %span{:class=>'stats-item', :id=>'stat-users'}
+      %span
+        = 'Users:'
+      %span{:class=>'badge'}
+        = number_with_delimiter(User.count)
+    
+    %span{:class=>'stats-item', :id=>'stat-adopted'}
+      %span
+        = 'Adopted:'
+      %span{:class=>'badge badge-success'}
+        = number_with_delimiter(Thing.where('user_id is not null').count)
+    
+    %span{:class=>'stats-item', :id=>'stat-hydrants'}
+      %span
+        = 'Hydrants:'
+      %span{:class=>'badge badge-important'}
+        = number_with_delimiter(Thing.count)
